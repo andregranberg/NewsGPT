@@ -60,7 +60,6 @@ def summarize_article(news_article: str, RapidAPIKey: str) -> str:
     gpt_response = response.json()["GPT"]
     parsed_gpt_response = json.loads(gpt_response)
 
-    # Add this line to decode the JSON string again
     final_response = json.loads(parsed_gpt_response)
 
     return final_response
