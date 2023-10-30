@@ -15,7 +15,5 @@
 streamlit run main.py -- --RapidAPIKey {YOUR_OWN_RAPIDAPI_KEY_HERE}
 ```
 
-
-![HST](https://github.com/andregranberg/NewsGPT/assets/38399597/f11194f9-7d27-4426-870f-19c59a9f1d50)
-
-![chatgpt](https://github.com/andregranberg/NewsGPT/assets/38399597/b1b9316d-d16c-4f13-a4c8-86c3f93f5883)
+![HST](https://github.com/andregranberg/NewsGPT/assets/38399597/ee0b68a6-8b4c-45ed-9d81-b432325c91bb)
+![chatgpt](https://github.com/andregranberg/NewsGPT/assets/38399597/6b924408-0e88-4d52-8d25-70a257c3a0d3)
