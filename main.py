@@ -23,42 +23,23 @@ def summarize_given_keyword(keyword: str, RapidAPIKey: str) -> str:
 
 
 def main(args: Namespace) -> None:
-    # If keyword is provided as an argument, use that
-    # Otherwise, use the default value of 'random'
-    if args.keyword:
-        keyword = args.keyword
-    else:
-        keyword = "chatGPT"
+    st.title("Keyword-based Article Summarizer Chatbot")
+    
+    # Instead of using a default value, we only use the value from the text input
+    keyword = st.text_input("Enter a keyword to get a summary:")
 
     conversation_history = []
-
-    st.title("Keyword-based Article Summarizer Chatbot")
-
-    keyword = st.text_input(
-        "Enter a keyword or leave blank for 'random':", value=keyword
-    )
-
-    # If using 'random' keyword, pick a random one from the list
-    if keyword == "random":
-        keyword = random.choice(keywords)
 
     if keyword:
         user_message = f"You: {keyword}"
         conversation_history.append(user_message)
         summary_text = summarize_given_keyword(keyword, args.RapidAPIKey)
 
-        # Remove quotes at the beginning and end
-        if summary_text.startswith('"') and summary_text.endswith('"'):
-            summary_text = summary_text[1:-1]
-
-        # Replace escaped quotes with regular quotes
-        summary_text = summary_text.replace('"', '"')
-
-        # Replace \n with actual new line
-        summary_text = summary_text.replace("\\n", "<br>")
+        # Replace quotes, escaped characters, and newlines
+        summary_text = summary_text.strip('"').replace('\\"', '"').replace("\\n", "<br>")
 
         bot_message = (
-            f"Chatbot: Summary based on keyword '{keyword}': <br><br>{summary_text}"
+            f"BinGo: <br>{summary_text}"
         )
         conversation_history.append(bot_message)
 
@@ -75,20 +56,17 @@ def main(args: Namespace) -> None:
                 unsafe_allow_html=True,
             )
 
-    # Start with an instruction if the conversation history is empty
-    if not conversation_history:
-        st.write("Enter a keyword to get a summary.")
-
 
 if __name__ == "__main__":
     parser = jsonargparse.ArgumentParser(
         "Keyword-based Article Summarizer Chatbot", env_prefix="", default_env=True
     )
-    parser.add_argument("--keyword", type=str, default="chatGPT")
+    # The --keyword argument no longer has a default value
+    parser.add_argument("--keyword", type=str, required=False)
     parser.add_argument(
         "--RapidAPIKey",
-        type=str
-        #default=RAPIDAPI_KEY,
+        type=str,
+        required=True  # Ensure the RapidAPIKey is provided
     )
     args = parser.parse_args()
 
